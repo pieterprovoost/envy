@@ -71,9 +71,10 @@ angular.module('envy', [])
 				var default_options = {
 					tooltips: false,
 					pointRange: [100, 100],
-					xFormat: '.02f',
-					yFormat: '.02f',
 					showLegend: true,
+					xFormat: d3.format('.02f'),
+					yFormat: d3.format('.02f'),
+					margin: {top: 30, right: 20, bottom: 50, left: 75},
 					color: nv.utils.defaultColor()
 				};
 
@@ -87,12 +88,13 @@ angular.module('envy', [])
 					} else {
 						element[0].classList.remove('empty');
 						nv.addGraph(function() {
-							var chart = nv.models.scatterChart().tooltips(scope.options.tooltips)
+							var chart = nv.models.scatterChart()
+								.margin(scope.options.margin)
+								.tooltips(scope.options.tooltips)
 								.pointRange(scope.options.pointRange)
-								.showLegend(scope.options.showLegend)
-								.color(scope.options.color);;
-							chart.xAxis.tickFormat(d3.format(scope.options.xFormat));
-							chart.yAxis.tickFormat(d3.format(scope.options.yFormat));
+								.color(scope.options.color);
+							chart.xAxis.tickFormat(scope.options.xFormat);
+							chart.yAxis.tickFormat(scope.options.yFormat);
 							d3.select(element[0].firstChild)
 								.datum(scope.data)
 								.call(chart);
