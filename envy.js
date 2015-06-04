@@ -8,7 +8,7 @@ angular.module('envy', [])
 				options: '=?'
 			},
 			transclude: false,
-        	template: '<div class="envy"><svg></svg></div>',
+        	template: '<div class="envy envymultibar"><svg></svg></div>',
 			controller: ["$scope", function ($scope) {
 			}],
 			link: function(scope, element, attrs, controller) {
@@ -63,7 +63,7 @@ angular.module('envy', [])
 				options: '=?'
 			},
 			transclude: false,
-        	template: '<div class="envy"><svg></svg></div>',
+        	template: '<div class="envy envyscatter"><svg></svg></div>',
 			controller: ["$scope", function ($scope) {
 			}],
 			link: function(scope, element, attrs, controller) {
