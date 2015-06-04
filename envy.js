@@ -21,7 +21,8 @@ angular.module('envy', [])
 					stacked: true,
 					showControls: false,
 					showLegend: true,
-					color: nv.utils.defaultColor()
+					color: nv.utils.defaultColor(),
+					duration: 0
 				};
 
 				scope.$watch('data', function() {
@@ -39,7 +40,8 @@ angular.module('envy', [])
 								.stacked(scope.options.stacked)
 								.showControls(scope.options.showControls)
 								.showLegend(scope.options.showLegend)
-								.color(scope.options.color);
+								.color(scope.options.color)
+								.duration(scope.options.duration);
 							chart.xAxis.tickFormat(d3.format(scope.options.xFormat));
 							chart.yAxis.tickFormat(d3.format(scope.options.yFormat));
 							d3.select(element[0].firstChild)
@@ -75,7 +77,8 @@ angular.module('envy', [])
 					xFormat: d3.format('.02f'),
 					yFormat: d3.format('.02f'),
 					margin: {top: 30, right: 20, bottom: 50, left: 75},
-					color: nv.utils.defaultColor()
+					color: nv.utils.defaultColor(),
+					duration: 0
 				};
 
 				scope.$watch('data', function() {
@@ -92,7 +95,8 @@ angular.module('envy', [])
 								.margin(scope.options.margin)
 								.tooltips(scope.options.tooltips)
 								.pointRange(scope.options.pointRange)
-								.color(scope.options.color);
+								.color(scope.options.color)
+								.duration(scope.options.duration);
 							chart.xAxis.tickFormat(scope.options.xFormat);
 							chart.yAxis.tickFormat(scope.options.yFormat);
 							d3.select(element[0].firstChild)
