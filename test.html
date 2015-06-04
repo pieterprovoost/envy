@@ -17,6 +17,7 @@ text.nvd3 {
 </head>
 <body ng-controller="testController">
 
+<envy-multi-bar data="bardata"></envy-multi-bar>
 <envy-scatter data="data"></envy-scatter>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -47,9 +48,31 @@ app.controller('testController', function($scope, $timeout) {
 		return data;
 	};
 
+	function randomBarData(groups, points) {
+		var data = [],
+		random = d3.random.normal();
+		for (i = 0; i < groups; i++) {
+			data.push({
+				key: 'group ' + i,
+				values: []
+			});
+			for (j = 0; j < points; j++) {
+				data[i].values.push({
+					x: j,
+					y: random() * 10
+				});
+			}
+		}
+		return data;
+	};
+
 	$timeout(function() {
 		$scope.data = randomData(3, 5);
 	}, 1000);
+
+	$timeout(function() {
+		$scope.bardata = randomBarData(3, 5);
+	}, 0);
 
 	$timeout(function() {
 		$scope.data = [];
