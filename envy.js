@@ -23,8 +23,8 @@ angular.module('envy', [])
 					showLegend: true,
 					color: nv.utils.defaultColor(),
 					duration: 0,
-					tooltipContent: function(key, y, e, graph) {
-						return '<p>' + key + ': ' + y + '</p>';
+					tooltipContent: function(key, x, y, e, graph) {
+						return '<p>' + key + ': ' + x + ', ' + y + '</p>';
 					}
 				};
 
@@ -76,8 +76,8 @@ angular.module('envy', [])
 
 				var default_options = {
 					tooltips: true,
-					tooltipContent: function(key, y, e, graph) {
-						return '<p>' + key + ': ' + y + '</p>';
+					tooltipContent: function(key, x, y, e, graph) {
+						return '<p>' + key + ': ' + x + ', ' + y + '</p>';
 					},
 					pointRange: [100, 100],
 					showLegend: true,
