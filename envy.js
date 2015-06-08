@@ -35,6 +35,7 @@ angular.module('envy', [])
 					if(!angular.isDefined(scope.data) || scope.data.length == 0) {
 						d3.selectAll(element[0].firstChild.childNodes).remove();
 						element[0].classList.add('empty');
+						envydata.removeChart(attrs.id);
 					} else {
 						element[0].classList.remove('empty');
 						nv.addGraph(function() {
@@ -53,10 +54,11 @@ angular.module('envy', [])
 								.call(chart);
 							nv.utils.windowResize(chart.update);
 
-							envydata.setChart(attrs.id, chart);
 							scope.$on('$destroy', function () {
 								envydata.reset();
 							});
+
+							envydata.setChart(attrs.id, chart);
 
 							return chart;
 						});
@@ -101,6 +103,7 @@ angular.module('envy', [])
 					if(!angular.isDefined(scope.data) || scope.data.length == 0) {
 						d3.selectAll(element[0].firstChild.childNodes).remove();
 						element[0].classList.add('empty');
+						envydata.removeChart(attrs.id);
 					} else {
 						element[0].classList.remove('empty');
 						nv.addGraph(function() {
@@ -152,6 +155,12 @@ angular.module('envy').service('envydata', function($q) {
 			charts[id] = deferred;
 		}
 		return charts[id].promise;
+	};
+
+	this.removeChart = function(id) {
+		if (charts.hasOwnProperty(id)) {
+			delete charts[id];
+		}
 	};
 
 	this.reset = function() {
