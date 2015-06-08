@@ -17,8 +17,9 @@ text.nvd3 {
 </head>
 <body ng-controller="testController">
 
-<envy-multi-bar data="bardata"></envy-multi-bar>
-<envy-scatter data="data"></envy-scatter>
+<envy-multi-bar id="bar1" data="bardata"></envy-multi-bar>
+<envy-multi-bar id="bar2" data="bardata2"></envy-multi-bar>
+<envy-scatter id="scatter1" data="data"></envy-scatter>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
@@ -28,7 +29,7 @@ text.nvd3 {
 <script>
 var app = angular.module('app', ['envy']);
 
-app.controller('testController', function($scope, $timeout) {
+app.controller('testController', function($scope, $timeout, envydata) {
 
 	function randomData(groups, points) {
 		var data = [],
@@ -72,11 +73,18 @@ app.controller('testController', function($scope, $timeout) {
 
 	$timeout(function() {
 		$scope.bardata = randomBarData(3, 5);
+		$scope.bardata2 = randomBarData(3, 5);
 	}, 0);
 
 	$timeout(function() {
 		$scope.data = [];
 	}, 5000);
+
+	envydata.getChart("bar1").then(function(chart) {
+		chart.multibar.dispatch.on("elementClick", function(e) {
+			console.log(e);
+		});
+	});
 
 });
 </script>

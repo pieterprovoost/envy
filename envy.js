@@ -1,5 +1,5 @@
 angular.module('envy', [])
-	.directive('envyMultiBar', function($timeout) {
+	.directive('envyMultiBar', function($timeout, envydata) {
 		return {
 			restrict: "E",
 			replace: true,
@@ -52,6 +52,12 @@ angular.module('envy', [])
 								.datum(scope.data)
 								.call(chart);
 							nv.utils.windowResize(chart.update);
+
+							envydata.setChart(attrs.id, chart);
+							scope.$on('$destroy', function () {
+								envydata.reset();
+							});
+
 							return chart;
 						});
 					}
@@ -111,6 +117,12 @@ angular.module('envy', [])
 								.datum(scope.data)
 								.call(chart);
 							nv.utils.windowResize(chart.update);
+
+							envydata.setChart(attrs.id, chart);
+							scope.$on('$destroy', function () {
+								envydata.reset();
+							});
+
 							return chart;
 						});
 					}
@@ -119,3 +131,31 @@ angular.module('envy', [])
 			}
 		}
 	});
+
+angular.module('envy').service('envydata', function($q) {
+
+	var charts = {};
+
+	this.setChart  = function(id, chart) {
+		if (charts.hasOwnProperty(id)) {
+			charts[id].resolve(chart);
+		} else {
+			var deferred = $q.defer();
+			deferred.resolve(chart);
+			chart[id] = deferred;
+		}
+	};
+
+	this.getChart = function(id) {
+		if (!charts.hasOwnProperty(id)) {
+			var deferred = $q.defer();
+			charts[id] = deferred;
+		}
+		return charts[id].promise;
+	};
+
+	this.reset = function() {
+		charts = {};
+	};
+
+});
