@@ -8,13 +8,13 @@ angular.module('envy', [])
 				options: '=?'
 			},
 			transclude: false,
-        	template: '<div class="envy envymultibar"><svg></svg></div>',
+			template: '<div class="envy envymultibar"><svg></svg></div>',
 			controller: ["$scope", function ($scope) {
 			}],
 			link: function(scope, element, attrs, controller) {
 
 				var default_options = {
-					tooltips: false,
+					tooltips: true,
 					pointRange: [100, 100],
 					xFormat: '.02f',
 					yFormat: '.02f',
@@ -22,7 +22,10 @@ angular.module('envy', [])
 					showControls: false,
 					showLegend: true,
 					color: nv.utils.defaultColor(),
-					duration: 0
+					duration: 0,
+					tooltipContent: function(key, y, e, graph) {
+						return '<p>' + key + ': ' + y + '</p>';
+					}
 				};
 
 				scope.$watch('data', function() {
@@ -37,6 +40,7 @@ angular.module('envy', [])
 						nv.addGraph(function() {
 							var chart = nv.models.multiBarChart()
 								.tooltips(scope.options.tooltips)
+								.tooltipContent(scope.options.tooltipContent)
 								.stacked(scope.options.stacked)
 								.showControls(scope.options.showControls)
 								.showLegend(scope.options.showLegend)
@@ -71,7 +75,10 @@ angular.module('envy', [])
 			link: function(scope, element, attrs, controller) {
 
 				var default_options = {
-					tooltips: false,
+					tooltips: true,
+					tooltipContent: function(key, y, e, graph) {
+						return '<p>' + key + ': ' + y + '</p>';
+					},
 					pointRange: [100, 100],
 					showLegend: true,
 					xFormat: d3.format('.02f'),
@@ -94,6 +101,7 @@ angular.module('envy', [])
 							var chart = nv.models.scatterChart()
 								.margin(scope.options.margin)
 								.tooltips(scope.options.tooltips)
+								.tooltipContent(scope.options.tooltipContent)
 								.pointRange(scope.options.pointRange)
 								.color(scope.options.color)
 								.duration(scope.options.duration);
