@@ -68,7 +68,7 @@ angular.module('envy', [])
 			}
 		}
 	})
-	.directive('envyScatter', function($timeout) {
+	.directive('envyScatter', function($timeout, envydata) {
 		return {
 			restrict: "E",
 			replace: true,
