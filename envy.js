@@ -15,9 +15,8 @@ angular.module('envy', [])
 
 				var default_options = {
 					tooltips: true,
-					pointRange: [100, 100],
-					xFormat: '.02f',
-					yFormat: '.02f',
+					xFormat: d3.format('.02f'),
+					yFormat: d3.format('.02f'),
 					stacked: true,
 					showControls: false,
 					showLegend: true,
@@ -47,8 +46,8 @@ angular.module('envy', [])
 								.showLegend(scope.options.showLegend)
 								.color(scope.options.color)
 								.duration(scope.options.duration);
-							chart.xAxis.tickFormat(d3.format(scope.options.xFormat));
-							chart.yAxis.tickFormat(d3.format(scope.options.yFormat));
+							chart.xAxis.tickFormat(scope.options.xFormat);
+							chart.yAxis.tickFormat(scope.options.yFormat);
 							d3.select(element[0].firstChild)
 								.datum(scope.data)
 								.call(chart);
