@@ -24,7 +24,10 @@ angular.module('envy', [])
 					duration: 0,
 					tooltipContent: function(key, x, y, e, graph) {
 						return '<p>' + key + ': ' + x + ', ' + y + '</p>';
-					}
+					},
+					margin: {top: 30, right: 20, bottom: 50, left: 60},
+					xAxisLabel: "",
+					yAxisLabel: ""
 				};
 
 				scope.$watch('data', function() {
@@ -45,9 +48,10 @@ angular.module('envy', [])
 								.showControls(scope.options.showControls)
 								.showLegend(scope.options.showLegend)
 								.color(scope.options.color)
-								.duration(scope.options.duration);
-							chart.xAxis.tickFormat(scope.options.xFormat);
-							chart.yAxis.tickFormat(scope.options.yFormat);
+								.duration(scope.options.duration)
+								.margin(scope.options.margin);
+							chart.xAxis.tickFormat(scope.options.xFormat).axisLabel(scope.options.xAxisLabel);
+							chart.yAxis.tickFormat(scope.options.yFormat).axisLabel(scope.options.yAxisLabel);
 							d3.select(element[0].firstChild)
 								.datum(scope.data)
 								.call(chart);
