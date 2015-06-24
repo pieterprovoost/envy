@@ -27,7 +27,8 @@ angular.module('envy', [])
 					},
 					margin: {top: 30, right: 20, bottom: 50, left: 60},
 					xAxisLabel: "",
-					yAxisLabel: ""
+					yAxisLabel: "",
+					reduceXTicks: true
 				};
 
 				scope.$watch('data', function() {
@@ -49,7 +50,8 @@ angular.module('envy', [])
 								.showLegend(scope.options.showLegend)
 								.color(scope.options.color)
 								.duration(scope.options.duration)
-								.margin(scope.options.margin);
+								.margin(scope.options.margin)
+								.reduceXTicks(scope.options.reduceXTicks);
 							chart.xAxis.tickFormat(scope.options.xFormat).axisLabel(scope.options.xAxisLabel);
 							chart.yAxis.tickFormat(scope.options.yFormat).axisLabel(scope.options.yAxisLabel);
 							d3.select(element[0].firstChild)
