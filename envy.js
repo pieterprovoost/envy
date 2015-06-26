@@ -163,9 +163,6 @@ angular.module('envy', [])
 					showLegend: true,
 					color: nv.utils.defaultColor(),
 					duration: 0,
-					tooltipContent: function(key, x, y, e, graph) {
-						return '<p>' + key + ': ' + x + ', ' + y + '</p>';
-					},
 					margin: {top: 30, right: 20, bottom: 50, left: 60},
 					xAxisLabel: "",
 					yAxisLabel: ""
@@ -184,7 +181,6 @@ angular.module('envy', [])
 						nv.addGraph(function() {
 							var chart = nv.models.lineChart()
 								.tooltips(scope.options.tooltips)
-								.tooltipContent(scope.options.tooltipContent)
 								.showLegend(scope.options.showLegend)
 								.color(scope.options.color)
 								.duration(scope.options.duration)
