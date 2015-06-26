@@ -17,6 +17,7 @@ text.nvd3 {
 </head>
 <body ng-controller="testController">
 
+<envy-stacked-area id="area1" data="areadata" options="areaoptions"></envy-stacked-area>
 <envy-multi-bar id="bar1" data="bardata" options="baroptions"></envy-multi-bar>
 <envy-multi-bar id="bar2" data="bardata2"></envy-multi-bar>
 <envy-scatter id="scatter1" data="data"></envy-scatter>
@@ -67,10 +68,33 @@ app.controller('testController', function($scope, $timeout, envydata) {
 		return data;
 	};
 
+	function randomAreaData(groups, points) {
+		var data = [],
+		random = d3.random.normal();
+		for (i = 0; i < groups; i++) {
+			data.push({
+				key: 'group ' + i,
+				values: []
+			});
+			for (j = 0; j < points; j++) {
+				data[i].values.push({
+					x: j,
+					y: random() * 10
+				});
+			}
+		}
+		return data;
+	};
+
 	$scope.baroptions = {
 		yAxisLabel: "y axis label",
 		margin: {top: 30, right: 20, bottom: 50, left: 80},
 		reduceXTicks: false
+	};
+
+	$scope.areaoptions = {
+		yAxisLabel: "y axis label",
+		margin: {top: 30, right: 20, bottom: 50, left: 80}
 	};
 
 	$timeout(function() {
@@ -80,6 +104,7 @@ app.controller('testController', function($scope, $timeout, envydata) {
 	$timeout(function() {
 		$scope.bardata = randomBarData(3, 10);
 		$scope.bardata2 = randomBarData(3, 5);
+		$scope.areadata = randomAreaData(2, 10);
 	}, 0);
 
 	$timeout(function() {
