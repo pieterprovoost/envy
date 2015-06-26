@@ -188,6 +188,9 @@ angular.module('envy', [])
 								.margin(scope.options.margin);
 							chart.xAxis.tickFormat(scope.options.xFormat).axisLabel(scope.options.xAxisLabel);
 							chart.yAxis.tickFormat(scope.options.yFormat).axisLabel(scope.options.yAxisLabel);
+							if (scope.options.forceY) {
+								chart.forceY(scope.options.forceY);
+							}
 							d3.select(element[0].firstChild)
 								.datum(scope.data)
 								.call(chart);
