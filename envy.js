@@ -141,6 +141,76 @@ angular.module('envy', [])
 			}
 		}
 	})
+	.directive('envyLine', function($timeout, envydata) {
+		return {
+			restrict: "E",
+			replace: true,
+			scope: {
+				data: '=?',
+				options: '=?'
+			},
+			transclude: false,
+			template: '<div class="envy envyline"><svg></svg></div>',
+			controller: ["$scope", function ($scope) {
+			}],
+			link: function(scope, element, attrs, controller) {
+
+				var default_options = {
+					tooltips: true,
+					xFormat: d3.format('.02f'),
+					yFormat: d3.format('.02f'),
+					useInteractiveGuideline: false,
+					showLegend: true,
+					color: nv.utils.defaultColor(),
+					duration: 0,
+					tooltipContent: function(key, x, y, e, graph) {
+						return '<p>' + key + ': ' + x + ', ' + y + '</p>';
+					},
+					margin: {top: 30, right: 20, bottom: 50, left: 60},
+					xAxisLabel: "",
+					yAxisLabel: ""
+				};
+
+				scope.$watch('data', function() {
+
+					scope.options = angular.extend(default_options, scope.options);
+
+					if(!angular.isDefined(scope.data) || scope.data.length == 0) {
+						d3.selectAll(element[0].firstChild.childNodes).remove();
+						element[0].classList.add('empty');
+						envydata.removeChart(attrs.id);
+					} else {
+						element[0].classList.remove('empty');
+						nv.addGraph(function() {
+							var chart = nv.models.lineChart()
+								.tooltips(scope.options.tooltips)
+								.tooltipContent(scope.options.tooltipContent)
+								.showLegend(scope.options.showLegend)
+								.color(scope.options.color)
+								.duration(scope.options.duration)
+								.useInteractiveGuideline(scope.options.useInteractiveGuideline)
+								.margin(scope.options.margin);
+							chart.xAxis.tickFormat(scope.options.xFormat).axisLabel(scope.options.xAxisLabel);
+							chart.yAxis.tickFormat(scope.options.yFormat).axisLabel(scope.options.yAxisLabel);
+							d3.select(element[0].firstChild)
+								.datum(scope.data)
+								.call(chart);
+							nv.utils.windowResize(chart.update);
+
+							scope.$on('$destroy', function () {
+								envydata.reset();
+							});
+
+							envydata.setChart(attrs.id, chart);
+
+							return chart;
+						});
+					}
+
+				});
+			}
+		}
+	})
 	.directive('envyScatter', function($timeout, envydata) {
 		return {
 			restrict: "E",
