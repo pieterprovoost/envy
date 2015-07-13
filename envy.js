@@ -128,6 +128,14 @@ angular.module('envy', [])
 								.duration(scope.options.duration)
 								.margin(scope.options.margin)
 								.reduceXTicks(scope.options.reduceXTicks);
+
+							if (scope.options.xTickValues) {
+								chart.xAxis.tickValues(scope.options.xTickValues);
+							}
+							if (scope.options.yTickValues) {
+								chart.yAxis.tickValues(scope.options.yTickValues);
+							}
+
 							chart.xAxis.tickFormat(scope.options.xFormat).axisLabel(scope.options.xAxisLabel);
 							chart.yAxis.tickFormat(scope.options.yFormat).axisLabel(scope.options.yAxisLabel);
 							d3.select(element[0].firstChild)
