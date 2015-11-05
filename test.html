@@ -1,7 +1,7 @@
 <!doctype html>
 <html ng-app="app">
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.0/nv.d3.css" />
+<link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css" />
 <style>
 .envy svg {
 	width: 600px;
@@ -23,10 +23,10 @@ text.nvd3 {
 <envy-line id="line1" data="linedata"></envy-line>
 <envy-scatter id="scatter1" data="data"></envy-scatter>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.0/nv.d3.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/d3/d3.min.js"></script>
+<script src="bower_components/nvd3/build/nv.d3.js"></script>
 <script src="../envy.js"></script>
 <script>
 var app = angular.module('app', ['envy']);
