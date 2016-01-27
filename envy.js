@@ -111,8 +111,7 @@ angular.module('envy', [])
 								.showLegend(scope.options.showLegend)
 								.color(scope.options.color)
 								.duration(scope.options.duration)
-								.margin(scope.options.margin)
-								;//.reduceXTicks(scope.options.reduceXTicks);
+								.margin(scope.options.margin);
 							chart.tooltip.contentGenerator(scope.options.tooltipContent);
 							chart.tooltip.enabled(scope.options.tooltips);
 							if (scope.options.xTickValues) {
@@ -120,6 +119,9 @@ angular.module('envy', [])
 							}
 							if (scope.options.yTickValues) {
 								chart.yAxis.tickValues(scope.options.yTickValues);
+							}
+							if (scope.options.barColor) {
+								chart.barColor(scope.options.barColor);
 							}
 							chart.xAxis.tickFormat(scope.options.xFormat).axisLabel(scope.options.xAxisLabel);
 							chart.yAxis.tickFormat(scope.options.yFormat).axisLabel(scope.options.yAxisLabel);
