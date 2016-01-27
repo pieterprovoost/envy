@@ -17,6 +17,7 @@ text.nvd3 {
 </head>
 <body ng-controller="testController">
 
+<envy-hor-bar id="bar3" data="bardata3" options="baroptions3"></envy-hor-bar>
 <envy-stacked-area id="area1" data="areadata" options="areaoptions"></envy-stacked-area>
 <envy-multi-bar id="bar1" data="bardata" options="baroptions"></envy-multi-bar>
 <envy-multi-bar id="bar2" data="bardata2"></envy-multi-bar>
@@ -51,7 +52,10 @@ app.controller('testController', function($scope, $timeout, envydata) {
 		return data;
 	};
 
-	function randomBarData(groups, points) {
+	function randomBarData(groups, points, text) {
+		if (!text) {
+			text = false
+		}
 		var data = [],
 		random = d3.random.normal();
 		for (i = 0; i < groups; i++) {
@@ -60,8 +64,12 @@ app.controller('testController', function($scope, $timeout, envydata) {
 				values: []
 			});
 			for (j = 0; j < points; j++) {
+				var v = j;
+				if (text) {
+					v = String.fromCharCode(97 + j).repeat(j + 1);
+				}
 				data[i].values.push({
-					x: j,
+					x: v,
 					y: random() * 10
 				});
 			}
@@ -111,6 +119,14 @@ app.controller('testController', function($scope, $timeout, envydata) {
 		reduceXTicks: false
 	};
 
+	$scope.baroptions3 = {
+		yAxisLabel: "y axis label",
+		margin: {top: 30, right: 20, bottom: 50, left: 80},
+		showLegend: false,
+		xFormat: function(x) { return x },
+		yFormat: d3.format('.0f'),
+	};
+
 	$scope.areaoptions = {
 		yAxisLabel: "y axis label",
 		margin: {top: 30, right: 20, bottom: 50, left: 80}
@@ -123,6 +139,7 @@ app.controller('testController', function($scope, $timeout, envydata) {
 	$timeout(function() {
 		$scope.bardata = randomBarData(3, 10);
 		$scope.bardata2 = randomBarData(3, 5);
+		$scope.bardata3 = randomBarData(3, 10, true);
 		$scope.areadata = randomAreaData(2, 10);
 		$scope.linedata = randomLineData(2, 10);
 	}, 0);
